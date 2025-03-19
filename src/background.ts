@@ -50,7 +50,7 @@ export class background extends BaseStep {
 				break;
 			case FlowEventName.ActionComplete:
 				{
-					console.log('bg done');
+					//console.log('bg done');
 				}
 				this.runNext();
 				break;

@@ -201,6 +201,15 @@ export class mainStage extends BaseStep {
 					runNext = true;
 				}
 				break;
+			case 'wait-click':
+				{
+					let sen = new actionSender();
+					sen.action = 'wait-click';
+					setSender(sen);
+					this.runNext();
+					runNext = true;
+				}
+				break;
 			default:
 				break;
 		}

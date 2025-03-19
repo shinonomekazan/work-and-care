@@ -9,6 +9,7 @@ import { messageWindow } from "./messageWindow";
 import { initialSender } from "./sender";
 import { stageLayout } from "./stageLayout";
 import { startStage } from "./startStage";
+import { wait } from "./wait";
 export enum FlowEventName {
 	Test,
 	GameLoad,
@@ -51,6 +52,7 @@ export class MainScene extends g.Scene {
 		let _layoutStep = new stageLayout();
 		let _fadeScreenStep = new fadeScreen();
 		let _charaStep = new chara();
+		let _waitStep = new wait();
 		//FlowEventName.GameLoad
 		let flowLoad = new Flow(FlowEventName.GameLoad,
 			[
@@ -59,7 +61,8 @@ export class MainScene extends g.Scene {
 				_mainStageStep,
 				_startStageStep,
 				_messageStep,
-				_charaStep
+				_charaStep,
+				_waitStep
 			]);
 		this.flowManger.addFlow(flowLoad);
 		//FlowEventName.Test
@@ -80,7 +83,8 @@ export class MainScene extends g.Scene {
 				_messageStep,
 				_fadeScreenStep,
 				_backgroundStep,
-				_charaStep
+				_charaStep,
+				_waitStep
 			]);
 		this.flowManger.addFlow(flowAction);
 		//FlowEventName.ActionComplete
@@ -90,7 +94,8 @@ export class MainScene extends g.Scene {
 				_backgroundStep,
 				_fadeScreenStep,
 				_mainStageStep,
-				_charaStep
+				_charaStep,
+				_waitStep
 			]);
 		this.flowManger.addFlow(flowActionComplete);
 		//...fire all flows
