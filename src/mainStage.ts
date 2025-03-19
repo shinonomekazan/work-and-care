@@ -36,7 +36,7 @@ export class mainStage extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				this.loadGoogleSheet()
+				this.loadGoogleSheet('Sheet1')
 				this.runNext();
 				break;
 			case FlowEventName.GotoMainStage:
@@ -69,6 +69,17 @@ export class mainStage extends BaseStep {
 						break;
 					}
 					this.waitComplete = false;
+					this.runNext();
+				}
+				break;
+			case FlowEventName.LoadSheet:
+				{
+					const sen: string = getSender()
+					console.log('loaddsheet ', sen);
+					this.waitComplete = false;
+					this.finish = false
+					this.index = 0;
+					this.loadGoogleSheet(sen)
 					this.runNext();
 				}
 				break;
@@ -210,6 +221,16 @@ export class mainStage extends BaseStep {
 					runNext = true;
 				}
 				break;
+			case 'options-sheet':
+				{
+					let sen = new actionSender();
+					sen.action = 'options-sheet';
+					sen.setValuesFrom(text)
+					setSender(sen);
+					this.runNext();
+					runNext = true;
+				}
+				break;
 			default:
 				break;
 		}
@@ -219,7 +240,7 @@ export class mainStage extends BaseStep {
 			this.runThisNextFrame()
 		}
 	}
-	private async loadGoogleSheet() {
+	private async loadGoogleSheet(sheetName: string) {
 		this.waitLoadSheet = true;
 		const urlParams = new URLSearchParams(window.location.search);
 		const SHEET_ID = urlParams.get('sheetid')
@@ -227,14 +248,14 @@ export class mainStage extends BaseStep {
 		if (SHEET_ID == null || API_KEY == null) {
 			throw ('api not found')
 		}
-		const RANGE = "Sheet1!A1:I100";
+		const RANGE = `${sheetName}!A1:I100`;
 		const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
 		try {
 			const response = await fetch(url);
 			const data = await response.json();
 			this.sheetScript = data.values;
 			this.waitLoadSheet = false;
-			//console.log(this.sheetScript);
+			console.log(this.sheetScript);
 		} catch (error) {
 			console.error("Error Google Sheet:", error);
 		}

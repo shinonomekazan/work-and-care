@@ -6,6 +6,7 @@ import { Flow } from "./flow/step";
 import { loadData } from "./loadData";
 import { mainStage } from "./mainStage";
 import { messageWindow } from "./messageWindow";
+import { options } from "./options";
 import { initialSender } from "./sender";
 import { stageLayout } from "./stageLayout";
 import { startStage } from "./startStage";
@@ -16,6 +17,7 @@ export enum FlowEventName {
 	GotoMainStage,
 	Action,
 	ActionComplete,
+	LoadSheet,
 }
 export class MainScene extends g.Scene {
 	private flowManger: FlowManager;
@@ -32,6 +34,10 @@ export class MainScene extends g.Scene {
 			"/assets/data.xml",
 			"/assets/test/standing.png",
 			"/assets/test/standing2.png",
+
+			"/assets/btn-thuyet-phuc.png",
+			"/assets/btn-thao-luan.png",
+			"/assets/btn-doc-lap.png",
 
 		];
 		super(param);
@@ -53,6 +59,7 @@ export class MainScene extends g.Scene {
 		let _fadeScreenStep = new fadeScreen();
 		let _charaStep = new chara();
 		let _waitStep = new wait();
+		let _optionsStep = new options()
 		//FlowEventName.GameLoad
 		let flowLoad = new Flow(FlowEventName.GameLoad,
 			[
@@ -62,7 +69,8 @@ export class MainScene extends g.Scene {
 				_startStageStep,
 				_messageStep,
 				_charaStep,
-				_waitStep
+				_waitStep,
+				_optionsStep
 			]);
 		this.flowManger.addFlow(flowLoad);
 		//FlowEventName.Test
@@ -84,7 +92,8 @@ export class MainScene extends g.Scene {
 				_fadeScreenStep,
 				_backgroundStep,
 				_charaStep,
-				_waitStep
+				_waitStep,
+				_optionsStep
 			]);
 		this.flowManger.addFlow(flowAction);
 		//FlowEventName.ActionComplete
@@ -95,14 +104,24 @@ export class MainScene extends g.Scene {
 				_fadeScreenStep,
 				_mainStageStep,
 				_charaStep,
-				_waitStep
+				_waitStep,
+				_optionsStep
 			]);
 		this.flowManger.addFlow(flowActionComplete);
+		//FlowEventName.LoadSheet
+		let flowLoadSheet = new Flow(FlowEventName.LoadSheet,
+			[
+				_optionsStep,
+				_mainStageStep,
+				_fadeScreenStep
+			])
+		this.flowManger.addFlow(flowLoadSheet);
 		//...fire all flows
 		this.flowManger.fire(FlowEventName.GameLoad);
 		this.flowManger.fire(FlowEventName.GotoMainStage);
 		this.flowManger.fireLoop(FlowEventName.Action);
 		this.flowManger.fireLoop(FlowEventName.ActionComplete);
+		this.flowManger.fireLoop(FlowEventName.LoadSheet);
 
 		this.flowManger.ativeDebug()
 	}

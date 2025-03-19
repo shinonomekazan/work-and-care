@@ -92,6 +92,24 @@
 			"path": "assets/test/standing2.png",
 			"width": 240,
 			"height": 480
+		},
+		"assets/btn-doc-lap.png": {
+			"type": "image",
+			"path": "assets/btn-doc-lap.png",
+			"width": 926,
+			"height": 85
+		},
+		"assets/btn-thao-luan.png": {
+			"type": "image",
+			"path": "assets/btn-thao-luan.png",
+			"width": 926,
+			"height": 85
+		},
+		"assets/btn-thuyet-phuc.png": {
+			"type": "image",
+			"path": "assets/btn-thuyet-phuc.png",
+			"width": 926,
+			"height": 85
 		}
 	},
 	"moduleMainScripts": {},

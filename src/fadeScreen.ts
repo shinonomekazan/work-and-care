@@ -24,7 +24,6 @@ export class fadeScreen extends BaseStep {
 				{
 					this.state = state.running;
 					const sen: actionSender = getSender();
-					console.log('fade ', sen.action);
 					switch (sen.action) {
 						case 'fadeout':
 							{
@@ -52,6 +51,13 @@ export class fadeScreen extends BaseStep {
 					} else {
 						this.runThisNextFrame();
 					}
+				}
+				break;
+			case FlowEventName.LoadSheet:
+				{
+					this.state = state.running;
+					this.fadeout(500)
+					this.runNext()
 				}
 				break;
 		}

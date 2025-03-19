@@ -67,7 +67,6 @@ export class chara extends BaseStep {
 			case FlowEventName.Action:
 				{
 					const sen: actionSender = getSender();
-					console.log('chara ', sen.action);
 					switch (sen.action) {
 						case 'chara-def':
 							{
