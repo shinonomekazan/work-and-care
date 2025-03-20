@@ -24,21 +24,6 @@ class charaDef {
 		this.currentSpr = undefined;
 	}
 	async setFace(spr: g.Sprite, time: number, location: { x: number, y: number } = undefined) {
-		if (spr == this.currentSpr) {
-			return;
-		}
-		if (this.currentSpr != undefined) {
-			if (time > 0) {
-				spr.show()
-				await Helper.crossSprite(spr, this.currentSpr);
-				this.currentSpr?.hide();
-			}
-		} else {
-			spr.show();
-			spr.opacity = 0;
-			await Helper.fadeInAsync(spr, time)
-		}
-		this.currentSpr = spr;
 		if (location != undefined) {
 			if (isNaN(location.x)) {
 				location.x = 0;
@@ -46,10 +31,30 @@ class charaDef {
 			if (isNaN(location.y)) {
 				location.y = 0;
 			}
-			this.layer.x = location.x;
-			this.layer.y = location.y;
-			this.layer.modified();
+			spr.x = location.x;
+			spr.y = location.y;
+			spr.modified();
 		}
+		spr.hide()
+		if (spr == this.currentSpr) {
+			spr.show()
+			return;
+		}
+		if (this.currentSpr != undefined) {
+			if (time > 0) {
+				console.log('cross');
+				spr.show()
+				await Helper.crossSprite(spr, this.currentSpr);
+				this.currentSpr?.hide();
+			}
+		} else {
+			spr.opacity = 0;
+			spr.modified()
+			spr.show();
+			await Helper.fadeInAsync(spr, time)
+		}
+		this.currentSpr = spr;
+
 	}
 }
 export class chara extends BaseStep {

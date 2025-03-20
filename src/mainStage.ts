@@ -36,7 +36,7 @@ export class mainStage extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				this.loadGoogleSheet('Sheet1')
+				this.loadGoogleSheet('start')
 				this.runNext();
 				break;
 			case FlowEventName.GotoMainStage:

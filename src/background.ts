@@ -19,7 +19,7 @@ export class background extends BaseStep {
 			case FlowEventName.GameLoad:
 				const layout: layout = getSender();
 				this.layer = layout.background;
-				this.setBg('/assets/back_living.png', 0)
+				this.setBg('/assets/backgrounds/back_living.png', 0)
 				//const scene = g.game.scene();
 				//const parent = globalThis.gameLayer;
 				//this.rect = new g.FilledRect({
@@ -57,6 +57,7 @@ export class background extends BaseStep {
 		}
 	}
 	private setBg(url: string, time: number) {
+		console.log('set bg ', url);
 		if (this.bg != undefined) {
 			this.bg.parent.remove(this.bg)
 			this.bg = undefined;

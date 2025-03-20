@@ -9,12 +9,6 @@
 			"path": "script/bundle.js",
 			"global": true
 		},
-		"assets/back_living.png": {
-			"type": "image",
-			"path": "assets/back_living.png",
-			"width": 1281,
-			"height": 721
-		},
 		"assets/button_start.png": {
 			"type": "image",
 			"path": "assets/button_start.png",
@@ -110,6 +104,72 @@
 			"path": "assets/btn-thuyet-phuc.png",
 			"width": 926,
 			"height": 85
+		},
+		"assets/charactors/yosomi.jpg": {
+			"type": "image",
+			"path": "assets/charactors/yosomi.jpg",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/backgrounds/back_living.png": {
+			"type": "image",
+			"path": "assets/backgrounds/back_living.png",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/backgrounds/bia_1.jpg": {
+			"type": "image",
+			"path": "assets/backgrounds/bia_1.jpg",
+			"width": 1280,
+			"height": 720
+		},
+		"assets/charactors/yosomi.png": {
+			"type": "image",
+			"path": "assets/charactors/yosomi.png",
+			"width": 323,
+			"height": 475
+		},
+		"assets/backgrounds/back_class.jpg": {
+			"type": "image",
+			"path": "assets/backgrounds/back_class.jpg",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/charactors/kitai.jpg": {
+			"type": "image",
+			"path": "assets/charactors/kitai.jpg",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/charactors/kitai.png": {
+			"type": "image",
+			"path": "assets/charactors/kitai.png",
+			"width": 261,
+			"height": 461
+		},
+		"assets/backgrounds/back_office.jpg": {
+			"type": "image",
+			"path": "assets/backgrounds/back_office.jpg",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/charactors/boss.jpg": {
+			"type": "image",
+			"path": "assets/charactors/boss.jpg",
+			"width": 1281,
+			"height": 721
+		},
+		"assets/charactors/boss.png": {
+			"type": "image",
+			"path": "assets/charactors/boss.png",
+			"width": 424,
+			"height": 506
+		},
+		"assets/backgrounds/swiming.jpg": {
+			"type": "image",
+			"path": "assets/backgrounds/swiming.jpg",
+			"width": 2044,
+			"height": 1162
 		}
 	},
 	"moduleMainScripts": {},

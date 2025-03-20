@@ -25,7 +25,7 @@ export class MainScene extends g.Scene {
 		param.assetPaths = [
 			"/assets/fire.png",
 			"/assets/fire-gray.png",
-			"/assets/back_living.png",
+			"/assets/backgrounds/back_living.png",
 			"/assets/title0.png",
 			"/assets/button_start.png",
 			"/assets/btn-mess-next.png",
@@ -35,9 +35,19 @@ export class MainScene extends g.Scene {
 			"/assets/test/standing.png",
 			"/assets/test/standing2.png",
 
+			//background
+			"/assets/backgrounds/bia_1.jpg",
+			"/assets/backgrounds/back_class.jpg",
+			"/assets/backgrounds/back_office.jpg",
+			"/assets/backgrounds/swiming.jpg",
 			"/assets/btn-thuyet-phuc.png",
 			"/assets/btn-thao-luan.png",
 			"/assets/btn-doc-lap.png",
+
+			//charactors
+			"/assets/charactors/yosomi.png",
+			"/assets/charactors/kitai.png",
+			"/assets/charactors/boss.png",
 
 		];
 		super(param);
