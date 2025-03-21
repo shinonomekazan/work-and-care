@@ -10,6 +10,7 @@ import { options } from "./options";
 import { initialSender } from "./sender";
 import { stageLayout } from "./stageLayout";
 import { startStage } from "./startStage";
+import { textScreen } from "./textScreen";
 import { wait } from "./wait";
 export enum FlowEventName {
 	Test,
@@ -70,6 +71,7 @@ export class MainScene extends g.Scene {
 		let _charaStep = new chara();
 		let _waitStep = new wait();
 		let _optionsStep = new options()
+		let _textScreenStep = new textScreen();
 		//FlowEventName.GameLoad
 		let flowLoad = new Flow(FlowEventName.GameLoad,
 			[
@@ -80,7 +82,8 @@ export class MainScene extends g.Scene {
 				_messageStep,
 				_charaStep,
 				_waitStep,
-				_optionsStep
+				_optionsStep,
+				_textScreenStep
 			]);
 		this.flowManger.addFlow(flowLoad);
 		//FlowEventName.Test
@@ -103,7 +106,8 @@ export class MainScene extends g.Scene {
 				_backgroundStep,
 				_charaStep,
 				_waitStep,
-				_optionsStep
+				_optionsStep,
+				_textScreenStep
 			]);
 		this.flowManger.addFlow(flowAction);
 		//FlowEventName.ActionComplete
@@ -115,7 +119,8 @@ export class MainScene extends g.Scene {
 				_mainStageStep,
 				_charaStep,
 				_waitStep,
-				_optionsStep
+				_optionsStep,
+				_textScreenStep
 			]);
 		this.flowManger.addFlow(flowActionComplete);
 		//FlowEventName.LoadSheet

@@ -231,6 +231,16 @@ export class mainStage extends BaseStep {
 					runNext = true;
 				}
 				break;
+			case 'text-screen':
+				{
+					let sen = new actionSender();
+					sen.action = 'text-screen';
+					sen.setValuesFrom(text)
+					setSender(sen);
+					this.runNext();
+					runNext = true;
+				}
+				break;
 			default:
 				break;
 		}

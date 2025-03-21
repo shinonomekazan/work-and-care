@@ -20,16 +20,6 @@ export class background extends BaseStep {
 				const layout: layout = getSender();
 				this.layer = layout.background;
 				this.setBg('/assets/backgrounds/back_living.png', 0)
-				//const scene = g.game.scene();
-				//const parent = globalThis.gameLayer;
-				//this.rect = new g.FilledRect({
-				//	scene: scene,
-				//	height: scene.game.height,
-				//	width: scene.game.width,
-				//	cssColor: 'white'
-				//})
-				//parent.append(this.rect)
-
 				this.runNext();
 				break;
 			case FlowEventName.GotoMainStage:

@@ -263,4 +263,11 @@ export class Helper {
 			} else break;
 		}
 	}
+	static alignCenterScreen(e: g.E) {
+		const w = g.game.width;
+		const h = g.game.height;
+		e.x = w / 2 - e.width / 2;
+		e.y = h / 2 - e.height / 2;
+		e.modified();
+	}
 }

@@ -55,8 +55,8 @@ export class fadeScreen extends BaseStep {
 				break;
 			case FlowEventName.LoadSheet:
 				{
-					this.state = state.running;
-					this.fadeout(500)
+					//this.state = state.running;
+					//this.fadeout(500)
 					this.runNext()
 				}
 				break;
