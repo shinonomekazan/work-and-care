@@ -24,7 +24,7 @@ export class options extends BaseStep {
 					const parent = layout.uiLayer;
 					//thaoluan
 					const img_thaoluan = scene.asset.getImage('/assets/btn-thao-luan.png')
-					this.btn_thaoluan = new Button(scene, img_thaoluan, 85, 463)
+					this.btn_thaoluan = new Button(scene, img_thaoluan, 463, 85)
 					this.btn_thaoluan.onClick.add(() => {
 						console.log('thaoluan');
 						this.sheetTarget = '7.1'
@@ -33,7 +33,7 @@ export class options extends BaseStep {
 					this.btn_thaoluan.hide()
 					//doclap
 					const img_doclap = scene.asset.getImage('/assets/btn-doc-lap.png')
-					this.btn_doclap = new Button(scene, img_doclap, 85, 463)
+					this.btn_doclap = new Button(scene, img_doclap, 463, 85)
 					this.btn_doclap.onClick.add(() => {
 						this.sheetTarget = '8.1'
 
@@ -42,7 +42,7 @@ export class options extends BaseStep {
 					this.btn_doclap.hide()
 					//thuyetphuc
 					const img_thuyetphuc = scene.asset.getImage('/assets/btn-thuyet-phuc.png')
-					this.btn_thuyetphuc = new Button(scene, img_thuyetphuc, 85, 463)
+					this.btn_thuyetphuc = new Button(scene, img_thuyetphuc, 463, 85)
 					this.btn_thuyetphuc.onClick.add(() => {
 						this.sheetTarget = '6.1'
 					})

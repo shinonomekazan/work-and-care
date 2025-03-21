@@ -22,7 +22,7 @@ export class startStage extends BaseStep {
 				this.spriteTitle.x = g.game.width / 2 - this.spriteTitle.width / 2;
 				this.spriteTitle.modified();
 				let img = scene.asset.getImage('/assets/button_start.png')
-				this.btnPlay = new Button(scene, img, 108, 553)
+				this.btnPlay = new Button(scene, img, 463, 106)
 				this.btnPlay.onClick.add(() => {
 					if (this.lockClick == false) {
 						console.log('play clicked');

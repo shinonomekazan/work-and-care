@@ -48,7 +48,7 @@ export class messageWindow extends BaseStep {
 				this.sprChatBg.hide();
 				//
 				const img = scene.asset.getImage('/assets/btn-mess-next.png')
-				this.btnNext = new Button(scene, img, 30, 68)
+				this.btnNext = new Button(scene, img, 68, 30)
 				this.btnNext.opacity = .7;
 				this.btnNext.onClick.add(() => {
 					this.btnNext.hide();
