@@ -7,8 +7,13 @@ import { getSender } from "./sender";
 import { actionSender } from "./mainStage";
 import { Button } from "./button";
 import { layout } from "./stageLayout";
+import { aligner, alignMode } from "./aligner";
 enum state {
-	none, running, done, btnNext, btnNextClicked,
+	none,
+	running,
+	done,
+	btnNext,
+	btnNextClicked,
 }
 export class messageWindow extends BaseStep {
 	private txtChat: al.Label;
@@ -24,11 +29,16 @@ export class messageWindow extends BaseStep {
 				let scene = g.game.scene();
 				const layout: layout = getSender();
 				const parent = layout.uiLayer;
-				this.sprChatBg = Helper.newSprite9Slice('/assets/message_window.png',
-					1142, 240,
-					{ top: 10, bottom: 10, left: 10, right: 10 });
+				/*this.sprChatBg = Helper.newSprite9Slice(
+					"/assets/message_window.png",
+					1142,
+					240,
+					{ top: 10, bottom: 10, left: 10, right: 10 }
+				);*/
+				this.sprChatBg = Helper.newSprite("/assets/message_window.png")
 				parent.append(this.sprChatBg);
-				this.align(this.sprChatBg, 0)
+				//this.align(this.sprChatBg, -20, 0);
+				aligner.align(this.sprChatBg, alignMode.bottom_mid, 0, -20)
 				this.txtChat = new al.Label({
 					scene: scene,
 					parent: this.sprChatBg,
@@ -38,27 +48,25 @@ export class messageWindow extends BaseStep {
 					textAlign: TextAlign.Left,
 					lineBreak: true,
 					widthAutoAdjust: true,
-					text: '',
-				})
+					text: "",
+				});
 				this.txtChat.x = 50;
 				this.txtChat.y = 50;
-				this.txtChat.invalidate()
-				this.txtChat.modified()
+				this.txtChat.invalidate();
+				this.txtChat.modified();
 				this.txtChat.hide();
 				this.sprChatBg.hide();
+				aligner.align(this.txtChat, alignMode.top_left, 30, 30)
+
 				//
-				const img = scene.asset.getImage('/assets/btn-mess-next.png')
-				this.btnNext = new Button(scene, img, 68, 30)
-				this.btnNext.opacity = .7;
+				const img = scene.asset.getImage("/assets/btn-mess-next.png");
+				this.btnNext = new Button(scene, img, 155, 65);
 				this.btnNext.onClick.add(() => {
 					this.btnNext.hide();
-					this.state = state.btnNextClicked
+					this.state = state.btnNextClicked;
 				});
-				this.btnNext.anchorY = 1;
-				this.btnNext.anchorX = 1;
-				this.btnNext.x = this.sprChatBg.x + this.sprChatBg.width - this.btnNext.width;
-				this.btnNext.y = this.sprChatBg.y - this.btnNext.height * 2;
-				parent.append(this.btnNext)
+				this.sprChatBg.append(this.btnNext)
+				aligner.align(this.btnNext, alignMode.bottom_right, 30, 20)
 				this.btnNext.hide();
 				this.runNext();
 				break;
@@ -68,31 +76,31 @@ export class messageWindow extends BaseStep {
 					this.state = state.running;
 					//console.log('message ', sen.action);
 					switch (sen.action) {
-						case 'typing-effect':
-							const isTrue = sen.getValue('istrue')
+						case "typing-effect":
+							const isTrue = sen.getValue("istrue");
 							if (isTrue == undefined) {
 								this.isTypingEffectMode = false;
 							} else {
-								this.isTypingEffectMode = isTrue.localeCompare('true') == 1
+								this.isTypingEffectMode =
+									isTrue.localeCompare("true") == 1;
 							}
 							this.state = state.done;
 							break;
-						case 'message':
+						case "message":
 							{
-								this.showMessage(sen.getValue('mess'))
+								this.showMessage(sen.getValue("mess"));
 							}
 							break;
-						case 'next-mess-button':
+						case "next-mess-button":
 							{
-								console.log('net buttn');
+								console.log("net buttn");
 								this.state = state.btnNext;
-								this.btnNext.show()
+								this.btnNext.show();
 							}
 							break;
-						case 'message-hide':
+						case "message-hide":
 							{
 								this.sprChatBg.hide();
-								console.log('HIEDEdddddd');
 							}
 							break;
 						default:
@@ -108,9 +116,8 @@ export class messageWindow extends BaseStep {
 						this.state = state.done;
 					}
 					if (this.state == state.done) {
-						this.runNext()
-					}
-					else {
+						this.runNext();
+					} else {
 						this.runThisNextFrame();
 					}
 				}
@@ -118,7 +125,6 @@ export class messageWindow extends BaseStep {
 		}
 	}
 	private async showMessage(message: string) {
-		console.log('.message ', message);
 		if (this.sprChatBg.visible() == false) {
 			this.sprChatBg.show();
 			this.txtChat.show();
@@ -129,21 +135,24 @@ export class messageWindow extends BaseStep {
 			this.txtChat.invalidate();
 			this.state = state.done;
 		} else {
-			let tmp = '';
+			let tmp = "";
 			for (var i = 0; i < message.length; i++) {
-				tmp += message[i]
+				tmp += message[i];
 				this.txtChat.text = tmp;
 				this.txtChat.invalidate();
-				await Helper.waitAsync(50)
+				await Helper.waitAsync(50);
 			}
-			await Helper.waitAsync(500)
+			await Helper.waitAsync(500);
 			this.state = state.done;
 		}
 	}
-	private align(e: g.E, offset: number) {
+	private align(e: g.E, yOffset: number, xOffset: number) {
 		const h = g.game.height;
+		const w = g.game.width;
 		e.anchorY = 1;
-		e.y = h;
+		e.anchorX = 0.5;
+		e.x = w / 2 + xOffset;
+		e.y = h + yOffset;
 		e.modified();
 	}
 }

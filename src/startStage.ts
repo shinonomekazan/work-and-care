@@ -16,23 +16,26 @@ export class startStage extends BaseStep {
 			case FlowEventName.GameLoad:
 				const scene = g.game.scene();
 				const layout: layout = getSender();
-				console.log(layout)
-				this.spriteTitle = Helper.newSprite('/assets/title0.png')
-				layout.uiLayer.append(this.spriteTitle)
-				this.spriteTitle.x = g.game.width / 2 - this.spriteTitle.width / 2;
+				console.log(layout);
+				this.spriteTitle = Helper.newSprite("/assets/title0.png");
+				layout.uiLayer.append(this.spriteTitle);
+				this.spriteTitle.x =
+					g.game.width / 2 - this.spriteTitle.width / 2;
+				this.spriteTitle.y = 100
 				this.spriteTitle.modified();
-				let img = scene.asset.getImage('/assets/button_start.png')
-				this.btnPlay = new Button(scene, img, 463, 106)
+				let img = scene.asset.getImage("/assets/button_start.png");
+				this.btnPlay = new Button(scene, img, 553, 108);
 				this.btnPlay.onClick.add(() => {
 					if (this.lockClick == false) {
-						console.log('play clicked');
+						console.log("play clicked");
 						this.playClicked = true;
 						this.lockClick = true;
 					}
-				})
-				layout.uiLayer.append(this.btnPlay)
+				});
+				layout.uiLayer.append(this.btnPlay);
 				this.btnPlay.x = g.game.width / 2 - this.btnPlay.width / 2;
-				this.btnPlay.y = g.game.height / 2 - this.btnPlay.height / 2 + 200;
+				this.btnPlay.y =
+					g.game.height / 2 - this.btnPlay.height / 2 + 250;
 				this.runNext();
 				break;
 			case FlowEventName.GotoMainStage:

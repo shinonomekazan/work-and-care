@@ -9,8 +9,8 @@ enum state {
 	none,
 	wait,
 	running,
-	done
-};
+	done,
+}
 export class fadeScreen extends BaseStep {
 	private state: state = state.none;
 	public onStep(eventName: FlowEventName) {
@@ -25,16 +25,16 @@ export class fadeScreen extends BaseStep {
 					this.state = state.running;
 					const sen: actionSender = getSender();
 					switch (sen.action) {
-						case 'fadeout':
+						case "fadeout":
 							{
 								const time = Number(sen.values);
-								this.fadeout(time)
+								this.fadeout(time);
 							}
 							break;
-						case 'fadeinout':
+						case "fadeinout":
 							{
 								const time = Number(sen.values);
-								this.fadeout(time)
+								this.fadeout(time);
 							}
 							break;
 						default:
@@ -47,7 +47,7 @@ export class fadeScreen extends BaseStep {
 			case FlowEventName.ActionComplete:
 				{
 					if (this.state == state.done) {
-						this.runNext()
+						this.runNext();
 					} else {
 						this.runThisNextFrame();
 					}
@@ -57,17 +57,16 @@ export class fadeScreen extends BaseStep {
 				{
 					//this.state = state.running;
 					//this.fadeout(500)
-					this.runNext()
+					this.runNext();
 				}
 				break;
 		}
 	}
 	private async fadeout(time: number) {
-		console.log('fafe with value ', time);
+		//console.log("fafe with value ", time);
 		this.state = state.running;
-		await Helper.fadeOutAsync(globalThis.gameLayer, 500)
-		await Helper.fadeInAsync(globalThis.gameLayer, 500)
+		await Helper.fadeOutAsync(globalThis.gameLayer, 500);
+		await Helper.fadeInAsync(globalThis.gameLayer, 500);
 		this.state = state.done;
 	}
-
 }

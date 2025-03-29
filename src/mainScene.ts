@@ -32,9 +32,7 @@ export class MainScene extends g.Scene {
 			"/assets/btn-mess-next.png",
 			"/assets/message_window.png",
 			"/assets/white.png",
-			"/assets/data.xml",
-			"/assets/test/standing.png",
-			"/assets/test/standing2.png",
+			"/assets/btn-test.png",
 
 			//background
 			"/assets/backgrounds/bia_1.jpg",
@@ -46,10 +44,7 @@ export class MainScene extends g.Scene {
 			"/assets/btn-doc-lap.png",
 
 			//charactors
-			"/assets/charactors/yosomi.png",
-			"/assets/charactors/kitai.png",
-			"/assets/charactors/boss.png",
-
+			
 		];
 		super(param);
 		this.onLoad.add(this.onGameLoad, this);
@@ -70,66 +65,61 @@ export class MainScene extends g.Scene {
 		let _fadeScreenStep = new fadeScreen();
 		let _charaStep = new chara();
 		let _waitStep = new wait();
-		let _optionsStep = new options()
+		let _optionsStep = new options();
 		let _textScreenStep = new textScreen();
 		//FlowEventName.GameLoad
-		let flowLoad = new Flow(FlowEventName.GameLoad,
-			[
-				_layoutStep,
-				_backgroundStep,
-				_mainStageStep,
-				_startStageStep,
-				_messageStep,
-				_charaStep,
-				_waitStep,
-				_optionsStep,
-				_textScreenStep
-			]);
+		let flowLoad = new Flow(FlowEventName.GameLoad, [
+			_layoutStep,
+			_backgroundStep,
+			_mainStageStep,
+			_startStageStep,
+			_messageStep,
+			_charaStep,
+			_waitStep,
+			_optionsStep,
+			_textScreenStep,
+		]);
 		this.flowManger.addFlow(flowLoad);
 		//FlowEventName.Test
 		let flowTest = new Flow(FlowEventName.Test, []);
 		this.flowManger.addFlow(flowTest);
 		//FlowEventName.GotoMainStage
-		let flowGotoMainStage = new Flow(FlowEventName.GotoMainStage,
-			[
-				_startStageStep,
-				_mainStageStep,
-				_backgroundStep
-			]);
+		let flowGotoMainStage = new Flow(FlowEventName.GotoMainStage, [
+			_startStageStep,
+			_mainStageStep,
+			_backgroundStep,
+		]);
 		this.flowManger.addFlow(flowGotoMainStage);
 		//FlowEventName.Action
-		let flowAction = new Flow(FlowEventName.Action,
-			[
-				_mainStageStep,
-				_messageStep,
-				_fadeScreenStep,
-				_backgroundStep,
-				_charaStep,
-				_waitStep,
-				_optionsStep,
-				_textScreenStep
-			]);
+		let flowAction = new Flow(FlowEventName.Action, [
+			_mainStageStep,
+			_messageStep,
+			_fadeScreenStep,
+			_backgroundStep,
+			_charaStep,
+			_waitStep,
+			_optionsStep,
+			_textScreenStep,
+		]);
 		this.flowManger.addFlow(flowAction);
 		//FlowEventName.ActionComplete
-		let flowActionComplete = new Flow(FlowEventName.ActionComplete,
-			[
-				_messageStep,
-				_backgroundStep,
-				_fadeScreenStep,
-				_mainStageStep,
-				_charaStep,
-				_waitStep,
-				_optionsStep,
-				_textScreenStep
-			]);
+		let flowActionComplete = new Flow(FlowEventName.ActionComplete, [
+			_messageStep,
+			_backgroundStep,
+			_fadeScreenStep,
+			_mainStageStep,
+			_charaStep,
+			_waitStep,
+			_optionsStep,
+			_textScreenStep,
+		]);
 		this.flowManger.addFlow(flowActionComplete);
 		//FlowEventName.LoadSheet
-		let flowLoadSheet = new Flow(FlowEventName.LoadSheet,
-			[
-				_optionsStep,
-				_mainStageStep,
-				_fadeScreenStep
-			])
+		let flowLoadSheet = new Flow(FlowEventName.LoadSheet, [
+			_optionsStep,
+			_mainStageStep,
+			_fadeScreenStep,
+		]);
 		this.flowManger.addFlow(flowLoadSheet);
 		//...fire all flows
 		this.flowManger.fire(FlowEventName.GameLoad);
@@ -138,7 +128,6 @@ export class MainScene extends g.Scene {
 		this.flowManger.fireLoop(FlowEventName.ActionComplete);
 		this.flowManger.fireLoop(FlowEventName.LoadSheet);
 
-		this.flowManger.ativeDebug()
+		this.flowManger.ativeDebug();
 	}
-
 }

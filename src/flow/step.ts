@@ -21,10 +21,10 @@ export class StepFireDebug {
 	}
 }
 export class BaseStep {
-	public onLoad() { }
-	public onUpdate() { }
+	public onLoad() {}
+	public onUpdate() {}
 	public onStep(eventName: FlowEventName) {
-		console.log('onstep');
+		console.log("onstep");
 	}
 	public static runIndex: number;
 	public static readonly runThisNextFrame: number = -1;
@@ -46,7 +46,7 @@ export class BaseStep {
 }
 export class Flow {
 	constructor(eventName: FlowEventName, steps: BaseStep[]) {
-		this.eventName = eventName
+		this.eventName = eventName;
 		this.steps = steps;
 	}
 	public stepIndex: number = 0;

@@ -7,7 +7,9 @@ import { getSender, setSender } from "./sender";
 import { layout } from "./stageLayout";
 import { actionSender } from "./mainStage";
 enum state {
-	none, running, done
+	none,
+	running,
+	done,
 }
 export class textScreen extends BaseStep {
 	private layer: g.E;
@@ -18,66 +20,66 @@ export class textScreen extends BaseStep {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
 				const layout: layout = getSender();
-				this.layer = layout.charaLayer
+				this.layer = layout.charaLayer;
 				const scene = g.game.scene();
 				this.fill = new g.FilledRect({
 					scene: scene,
-					cssColor: 'black',
+					cssColor: "black",
 					height: 720,
 					width: 1280,
-					parent: this.layer
-				})
-				this.fill.hide()
+					parent: this.layer,
+				});
+				this.fill.hide();
 				this.text = new al.Label({
 					scene: scene,
 					width: 1000,
 					widthAutoAdjust: true,
 					font: Helper.getFont,
-					textColor: 'white',
-					text: '',
-					parent: this.layer
-				})
-				this.text.hide()
+					textColor: "white",
+					text: "",
+					parent: this.layer,
+				});
+				this.text.hide();
 				this.runNext();
 				break;
 			case FlowEventName.Action:
 				{
 					if (this.state == state.running) {
-						this.runThisNextFrame()
+						this.runThisNextFrame();
 						break;
 					}
 					const sen: actionSender = getSender();
-					if (sen != undefined && sen.action == 'text-screen') {
-						console.log('xxxxxxxxxxxxx');
+					if (sen != undefined && sen.action == "text-screen") {
+						console.log("xxxxxxxxxxxxx");
 						this.state = state.running;
-						let time = Number(sen.getValue('time'))
+						let time = Number(sen.getValue("time"));
 						if (isNaN(time)) {
 							time = 3;
 						}
-						let backColor = sen.getValue('backcolor')
-						let textColor = sen.getValue('textcolor')
+						let backColor = sen.getValue("backcolor");
+						let textColor = sen.getValue("textcolor");
 						if (textColor == undefined) {
-							textColor = 'white'
+							textColor = "white";
 						}
 						if (backColor == undefined) {
-							backColor = 'black'
+							backColor = "black";
 						}
-						backColor = '#7cc0ad'
+						backColor = "#7cc0ad";
 						this.fill.cssColor = backColor;
-						this.fill.modified()
-						this.text.textColor = textColor
-						this.text.text = sen.getValue('text')
-						this.text.invalidate()
-						Helper.alignCenterScreen(this.text)
+						this.fill.modified();
+						this.text.textColor = textColor;
+						this.text.text = sen.getValue("text");
+						this.text.invalidate();
+						Helper.alignCenterScreen(this.text);
 
-						console.log('t = ', this.text.text);
+						console.log("t = ", this.text.text);
 						this.fill.show();
 						this.text.show();
-						setSender(undefined)
+						setSender(undefined);
 						Helper.delayCall(() => {
 							this.state = state.done;
-						}, time * 1000)
-						this.runThisNextFrame()
+						}, time * 1000);
+						this.runThisNextFrame();
 						break;
 					}
 				}

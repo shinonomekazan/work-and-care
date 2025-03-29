@@ -6,10 +6,10 @@ import { FlowEventName } from "./mainScene";
 import { getSender, setSender } from "./sender";
 export class layout {
 	constructor() {
-		const scene = g.game.scene()
+		const scene = g.game.scene();
 		this.root = new g.E({
 			scene: scene,
-			parent: globalThis.gameLayer
+			parent: globalThis.gameLayer,
 		});
 		this.background = this.newE(scene);
 		this.charaLayer = this.newE(scene);
@@ -20,7 +20,7 @@ export class layout {
 	private newE(scene: g.Scene) {
 		return new g.E({
 			scene: scene,
-			parent: this.root
+			parent: this.root,
 		});
 	}
 	root: g.E;
@@ -41,5 +41,4 @@ export class stageLayout extends BaseStep {
 				break;
 		}
 	}
-
 }

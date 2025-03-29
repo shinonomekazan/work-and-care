@@ -17,10 +17,14 @@ export class Helper {
 		return Helper.font;
 	}
 	static get isMobile() {
-		return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|Fennec|BlackBerry|BB10|PlayBook|Silk/.test(navigator.userAgent);
+		return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop|Fennec|BlackBerry|BB10|PlayBook|Silk/.test(
+			navigator.userAgent
+		);
 	}
 	static rectContain(rect: CommonRect, x: number, y: number) {
-		return x > rect.left && x < rect.right && y < rect.bottom && y > rect.top;
+		return (
+			x > rect.left && x < rect.right && y < rect.bottom && y > rect.top
+		);
 	}
 	static animYCard(e: g.E, y: number) {
 		let tl = new Timeline(g.game.scene());
@@ -38,7 +42,13 @@ export class Helper {
 			}, delay);
 		});
 	}
-	static moveToAsync(e: g.E, x: number, y: number, time: number, easing?: EasingType) {
+	static moveToAsync(
+		e: g.E,
+		x: number,
+		y: number,
+		time: number,
+		easing?: EasingType
+	) {
 		let tl = new Timeline(g.game.scene());
 		let tw = tl.create(e);
 		tw.moveTo(x, y, time, easing);
@@ -48,17 +58,20 @@ export class Helper {
 			}, time);
 		});
 	}
-	static crossSprite(newSprite: g.E, current: g.E) {
+	static crossSprite(newSprite: g.E, current: g.E, time = 1000) {
 		let tl = new Timeline(g.game.scene());
 		let tw = tl.create(newSprite);
+		newSprite.show()
 		tw.every((e, p) => {
 			newSprite.opacity = p;
 			current.opacity = 1 - p;
-		}, 1000);
+			current.modified()
+			newSprite.modified()
+		}, time)
 		return new Promise((resolve) => {
 			setTimeout(() => {
 				resolve(undefined);
-			}, 1000);
+			}, time);
 		});
 	}
 	static fadeInAsync(e: g.E, time: number) {
@@ -87,7 +100,7 @@ export class Helper {
 		let tw = tl.create(e);
 		let curScale = e.scaleX;
 		tw.scaleTo(value, value, time).call(() => {
-			tw.scaleTo(curScale, curScale, time)
+			tw.scaleTo(curScale, curScale, time);
 		});
 	}
 	static waitAsync(time: number) {
@@ -97,7 +110,12 @@ export class Helper {
 			}, time);
 		});
 	}
-	static newSprite9Slice(path: string, width: number, height: number, borderWidth: any) {
+	static newSprite9Slice(
+		path: string,
+		width: number,
+		height: number,
+		borderWidth: any
+	) {
 		let scene = g.game.scene();
 		var destSurface = g.game.resourceFactory.createSurface(width, height);
 		var srcSurface = g.SurfaceUtil.asSurface(scene.asset.getImage(path));
@@ -108,57 +126,59 @@ export class Helper {
 		});
 	}
 	static midAlignWithX(all: g.E[], x: number, offset: number) {
-		let totalWidth = all.reduce((acc, rect) => acc + rect.width, 0) + (all.length - 1) * offset;
+		let totalWidth =
+			all.reduce((acc, rect) => acc + rect.width, 0) +
+			(all.length - 1) * offset;
 		const startX = x - totalWidth / 2;
 		let curX = startX;
-		all.map(rect => {
-			const pos = { x: curX + rect.width / 2, y: 1 }
+		all.map((rect) => {
+			const pos = { x: curX + rect.width / 2, y: 1 };
 			curX += rect.width + offset;
 			rect.x = pos.x;
-			rect.modified()
+			rect.modified();
 		});
 	}
 	static newSprite(path: string) {
 		let scene = g.game.scene();
 		let spr = new g.Sprite({
 			scene: scene,
-			src: scene.asset.getImage(path)
+			src: scene.asset.getImage(path),
 		});
 		return spr;
 	}
 	static getIdWithoutHardMark(id: string) {
-		var idxh = id.lastIndexOf(')')
+		var idxh = id.lastIndexOf(")");
 		if (idxh > 0) {
-			return id.substr(idxh + 1)
+			return id.substr(idxh + 1);
 		}
-		var idx2 = id.lastIndexOf(']')
+		var idx2 = id.lastIndexOf("]");
 		if (idx2 > 0) {
-			return id.substr(idx2 + 1)
+			return id.substr(idx2 + 1);
 		}
 		return id;
 	}
 	static checkMissionIsHard(id: string) {
-		return id.indexOf('(') >= 0
+		return id.indexOf("(") >= 0;
 	}
 	static checkMissionHasHint(id: string) {
-		return id.startsWith('[')
+		return id.startsWith("[");
 	}
 	//eg: ????@どーなつ => どーなつ
 	static getMissionWorWithoutMarkHide(miss: string) {
-		var idx = miss.indexOf('@');
+		var idx = miss.indexOf("@");
 		if (idx > 0) {
 			return miss.substring(idx + 1);
 		}
 		return miss;
 	}
 	static getMisHint(id: string): { hint: string; count: number } {
-		if (id.startsWith('[')) {
-			var start = id.indexOf('[')
-			var end = id.indexOf(']')
-			var inn = id.indexOf('@')
+		if (id.startsWith("[")) {
+			var start = id.indexOf("[");
+			var end = id.indexOf("]");
+			var inn = id.indexOf("@");
 			var hint = id.substring(start + 1, inn);
 			var count = Number(id.substring(inn + 1, end));
-			return { hint: hint, count: count }
+			return { hint: hint, count: count };
 		}
 		return undefined;
 	}
@@ -170,7 +190,7 @@ export class Helper {
 			fontSize: 30,
 			textAlign: TextAlign.Left,
 			widthAutoAdjust: true,
-			text: text
+			text: text,
 		});
 		return lab;
 	}
@@ -184,14 +204,14 @@ export class Helper {
 			textAlign: TextAlign.Left,
 			lineBreak: true,
 			widthAutoAdjust: true,
-			text: text
+			text: text,
 		});
 		return lab;
 	}
 	static insertNewlines(str: string, everyN: number) {
-		let result = '';
+		let result = "";
 		for (let i = 0; i < str.length; i += everyN) {
-			result += str.slice(i, i + everyN) + '\n';
+			result += str.slice(i, i + everyN) + "\n";
 		}
 		return result;
 	}
@@ -241,7 +261,7 @@ export class Helper {
 				return parent.children[i];
 			}
 		}
-		return undefined
+		return undefined;
 	}
 	static setFontsizeUptoTargetWidth(label: g.Label, targetWidth: number) {
 		let fontsize = label.fontSize;
@@ -269,5 +289,116 @@ export class Helper {
 		e.x = w / 2 - e.width / 2;
 		e.y = h / 2 - e.height / 2;
 		e.modified();
+	}
+	static linkToFileIdGoogleDrive(link: string) {
+		const regex = /\/d\/([^\/?]+)/;
+		const match = link.match(regex);
+		return match ? match[1] : null;
+	}
+	static async fetchGoogleDriveImage(fileId: string, accessToken: string): Promise<string> {
+		console.log('TK ', accessToken);
+		const url = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`;
+		try {
+			const response = await fetch(url, {
+				method: "GET",
+				headers: {
+					"Authorization": `Bearer ${accessToken}`,
+				},
+			});
+
+			if (!response.ok) throw new Error("Failed to fetch image");
+
+			const blob = await response.blob();
+			return URL.createObjectURL(blob);
+
+		} catch (error) {
+			console.error("Error fetching file:", error);
+			throw error;
+		}
+	}
+	static async loadImageGoogleDrive(link: string): Promise<g.Sprite> {
+		const scene = g.game.scene();
+		let fileId = Helper.linkToFileIdGoogleDrive(link)
+		const STORAGE_KEY = "google_token";
+		let accessToken = localStorage.getItem(STORAGE_KEY);
+		const imageUrl = await Helper.fetchGoogleDriveImage(fileId, accessToken);
+		const assetId = "google_drive_asset";
+		return new Promise<g.Sprite | null>((resolve, reject) => {
+
+			const handler: g.AssetManagerLoadHandler = {
+				_onAssetLoad: (asset: g.Asset) => {
+					if (asset.type === "image") {
+						const imageAsset = asset as g.ImageAsset;
+						const sprite = new g.Sprite({
+							scene: scene,
+							src: imageAsset,
+							width: imageAsset.width,
+							height: imageAsset.height,
+						});
+						scene.append(sprite);  // Thêm ảnh vào scene
+					}
+				},
+				_onAssetError: (asset: g.Asset, error: g.AssetLoadError) => {
+					console.error("Failed to load asset:", asset, error);
+				},
+			};
+			g.game._assetManager.requestAssets(
+				[
+					{
+						id: assetId,
+						type: "image",
+						uri: imageUrl,
+						width: 300,
+						height: 300,
+					},
+				],
+				handler
+			);
+		});
+	}
+	static async loadImageGoogleDrive2(link: string): Promise<g.Sprite> {
+		let fileId = this.linkToFileIdGoogleDrive(link)
+		const scene = g.game.scene();
+		const url = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${globalThis.apiKey}`
+		const img = new Image();
+		console.log('->URL ', url);
+		await new Promise<void>((resolve, reject) => {
+			img.onload = () => resolve();
+			img.onerror = () => reject(new Error("Failed to load image"));
+			img.src = url;
+		});
+		const assetId = "dynamicImage";
+		return new Promise<g.Sprite | null>((resolve, reject) => {
+			const handler: g.AssetManagerLoadHandler = {
+				_onAssetLoad: (asset: g.Asset) => {
+					if (asset.type === "image") {
+						const imageAsset = asset as g.ImageAsset;
+						const sprite = new g.Sprite({
+							scene: scene,
+							src: imageAsset,
+							width: imageAsset.width,
+							height: imageAsset.height,
+						});
+						resolve(sprite);
+					}
+				},
+				_onAssetError: (asset: g.Asset, error: g.AssetLoadError) => {
+					console.error("Failed to load asset:", asset, error);
+					reject(error);
+				},
+			};
+			g.game._assetManager.requestAssets(
+				[
+					{
+						id: assetId,
+						type: "image",
+						uri: url,
+						width: img.width,
+						height: img.height,
+					},
+				],
+				handler
+			);
+		});
 	}
 }

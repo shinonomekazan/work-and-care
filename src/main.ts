@@ -2,15 +2,17 @@ import { Scene } from "@akashic/akashic-engine";
 import { MainScene } from "./mainScene";
 
 declare global {
-	var font: g.DynamicFont
-	var gameLayer: g.E
-	var debugLayer: g.E
-	var debugMode: boolean
+	var apiKey: string;
+	var font: g.DynamicFont;
+	var gameLayer: g.E;
+	var debugLayer: g.E;
+	var debugMode: boolean;
 }
 async function main(param: g.GameMainParameterObject): Promise<void> {
 	//console.log(param);
 	const urlParams = new URLSearchParams(window.location.search);
-	globalThis.debugMode = urlParams.get('debugf') != null;
+	globalThis.debugMode = urlParams.get("debugf") != null;
+	globalThis.apiKey = urlParams.get("ggogleapi");
 	globalThis.font = new g.DynamicFont({
 		game: g.game,
 		fontFamily: "M PLUS 1",
@@ -19,16 +21,16 @@ async function main(param: g.GameMainParameterObject): Promise<void> {
 	});
 	let scene = new MainScene({
 		game: g.game,
-		name: 'mainscene'
+		name: "mainscene",
 	});
 	globalThis.gameLayer = new g.E({
 		scene: scene,
-		parent: scene
-	})
+		parent: scene,
+	});
 	globalThis.debugLayer = new g.E({
 		scene: scene,
-		parent: scene
-	})
-	g.game.pushScene(scene)
+		parent: scene,
+	});
+	g.game.pushScene(scene);
 }
 export = main;

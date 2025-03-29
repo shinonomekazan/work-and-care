@@ -1,7 +1,7 @@
 var config = {
 	warn: {
 		es6: false,
-		useDate: false
+		useDate: false,
 	},
 };
 

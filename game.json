@@ -18,22 +18,14 @@
 		"assets/message_window.png": {
 			"type": "image",
 			"path": "assets/message_window.png",
-			"width": 1142,
-			"height": 240
+			"width": 1074,
+			"height": 172
 		},
 		"assets/title0.png": {
 			"type": "image",
 			"path": "assets/title0.png",
-			"width": 1047,
-			"height": 245
-		},
-		"assets/button_start.psd": {
-			"type": "binary",
-			"path": "assets/button_start.psd"
-		},
-		"assets/data.xml": {
-			"type": "text",
-			"path": "assets/data.xml"
+			"width": 784,
+			"height": 303
 		},
 		"assets/white.png": {
 			"type": "image",
@@ -56,60 +48,26 @@
 		"assets/btn-mess-next.png": {
 			"type": "image",
 			"path": "assets/btn-mess-next.png",
-			"width": 136,
-			"height": 30
-		},
-		"assets/btn-next-2.png": {
-			"type": "image",
-			"path": "assets/btn-next-2.png",
-			"width": 68,
-			"height": 30
-		},
-		"assets/btn-next.png": {
-			"type": "image",
-			"path": "assets/btn-next.png",
-			"width": 68,
-			"height": 30
-		},
-		"assets/btn-next.psd": {
-			"type": "binary",
-			"path": "assets/btn-next.psd"
-		},
-		"assets/test/standing.png": {
-			"type": "image",
-			"path": "assets/test/standing.png",
-			"width": 240,
-			"height": 480
-		},
-		"assets/test/standing2.png": {
-			"type": "image",
-			"path": "assets/test/standing2.png",
-			"width": 240,
-			"height": 480
+			"width": 310,
+			"height": 65
 		},
 		"assets/btn-doc-lap.png": {
 			"type": "image",
 			"path": "assets/btn-doc-lap.png",
-			"width": 926,
-			"height": 85
+			"width": 1032,
+			"height": 130
 		},
 		"assets/btn-thao-luan.png": {
 			"type": "image",
 			"path": "assets/btn-thao-luan.png",
-			"width": 926,
-			"height": 85
+			"width": 1032,
+			"height": 130
 		},
 		"assets/btn-thuyet-phuc.png": {
 			"type": "image",
 			"path": "assets/btn-thuyet-phuc.png",
-			"width": 926,
-			"height": 85
-		},
-		"assets/charactors/yosomi.jpg": {
-			"type": "image",
-			"path": "assets/charactors/yosomi.jpg",
-			"width": 1281,
-			"height": 721
+			"width": 1032,
+			"height": 130
 		},
 		"assets/backgrounds/back_living.png": {
 			"type": "image",
@@ -117,59 +75,11 @@
 			"width": 1281,
 			"height": 721
 		},
-		"assets/backgrounds/bia_1.jpg": {
+		"assets/btn-test.png": {
 			"type": "image",
-			"path": "assets/backgrounds/bia_1.jpg",
-			"width": 1280,
-			"height": 720
-		},
-		"assets/charactors/yosomi.png": {
-			"type": "image",
-			"path": "assets/charactors/yosomi.png",
-			"width": 323,
-			"height": 475
-		},
-		"assets/backgrounds/back_class.jpg": {
-			"type": "image",
-			"path": "assets/backgrounds/back_class.jpg",
-			"width": 1281,
-			"height": 721
-		},
-		"assets/charactors/kitai.jpg": {
-			"type": "image",
-			"path": "assets/charactors/kitai.jpg",
-			"width": 1281,
-			"height": 721
-		},
-		"assets/charactors/kitai.png": {
-			"type": "image",
-			"path": "assets/charactors/kitai.png",
-			"width": 261,
-			"height": 461
-		},
-		"assets/backgrounds/back_office.jpg": {
-			"type": "image",
-			"path": "assets/backgrounds/back_office.jpg",
-			"width": 1281,
-			"height": 721
-		},
-		"assets/charactors/boss.jpg": {
-			"type": "image",
-			"path": "assets/charactors/boss.jpg",
-			"width": 1281,
-			"height": 721
-		},
-		"assets/charactors/boss.png": {
-			"type": "image",
-			"path": "assets/charactors/boss.png",
-			"width": 424,
-			"height": 506
-		},
-		"assets/backgrounds/swiming.jpg": {
-			"type": "image",
-			"path": "assets/backgrounds/swiming.jpg",
-			"width": 2044,
-			"height": 1162
+			"path": "assets/btn-test.png",
+			"width": 160,
+			"height": 30
 		}
 	},
 	"moduleMainScripts": {},

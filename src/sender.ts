@@ -8,5 +8,5 @@ export function setSender(value: any) {
 	senders.set(FlowManager.eventName, value);
 }
 export function getSender(): any {
-	return senders.get(FlowManager.eventName)
+	return senders.get(FlowManager.eventName);
 }
