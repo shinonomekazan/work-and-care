@@ -4,8 +4,14 @@ import { BaseStep } from "./flow/step";
 import { googleLogin } from "./googleLogin";
 import { Helper } from "./helper";
 import { FlowEventName } from "./mainScene";
-import { getSender, setSender } from "./sender";
+import { gameLoad_sender, getSender, setSender } from "./sender";
 import { layout } from "./stageLayout";
+enum stateLoadingSheet {
+	none,
+	startLoad,
+	loading,
+	done
+}
 export class actionSender {
 	action: string;
 	values: { id: string; value: string }[];
@@ -39,6 +45,7 @@ export class mainStage extends BaseStep {
 	private finish = false;
 	private gotoMainState = false;
 	private btnTest: Button
+	private stateLoadingSheet: stateLoadingSheet = stateLoadingSheet.none;
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
@@ -50,11 +57,11 @@ export class mainStage extends BaseStep {
 					}
 					this.loadGoogleSheet(sheetName);
 					//
-					const layout: layout = getSender();
+					const sender: gameLoad_sender = getSender();
 					const scene = g.game.scene();
 					const img_doclap = scene.asset.getImage("/assets/btn-test.png");
 					this.btnTest = new Button(scene, img_doclap, 80, 30);
-					layout.uiLayer.append(this.btnTest)
+					sender.layout.uiLayer.append(this.btnTest)
 					this.btnTest.onClick.add(() => {
 						this.test()
 					})
@@ -99,7 +106,7 @@ export class mainStage extends BaseStep {
 					this.runNext();
 				}
 				break;
-			case FlowEventName.LoadSheet:
+			case FlowEventName.LoadSheetFromOption:
 				{
 					const sen: string = getSender();
 					console.log("loaddsheet ", sen);
@@ -108,6 +115,36 @@ export class mainStage extends BaseStep {
 					this.index = 0;
 					this.loadGoogleSheet(sen);
 					this.runNext();
+				}
+				break;
+			case FlowEventName.LoadSheetFromGoto:
+				{
+					this.stateLoadingSheet = stateLoadingSheet.startLoad;
+					let target: string = getSender();
+					console.log('target LOAD ', target);
+					this.waitComplete = false;
+					this.finish = false;
+					this.index = 0;
+					this.loadGoogleSheet(target);
+					this.runNext()
+				}
+				break;
+			case FlowEventName.LoadSheet_start:
+				{
+					if (this.stateLoadingSheet == stateLoadingSheet.startLoad) {
+						this.runNext();
+					} else {
+						this.runThisNextFrame();
+					}
+				}
+				break;
+			case FlowEventName.LoadSheet_end:
+				{
+					if (this.stateLoadingSheet == stateLoadingSheet.done) {
+						this.runNext();
+					} else {
+						this.runThisNextFrame();
+					}
 				}
 				break;
 		}
@@ -265,6 +302,16 @@ export class mainStage extends BaseStep {
 						runNext = true;
 					}
 					break;
+				case "goto-sheet":
+					{
+						let sen = new actionSender();
+						sen.action = "text-screen";
+						sen.setValuesFrom(text);
+						setSender(sen);
+						this.runNext();
+						runNext = true;
+					}
+					break;
 				default:
 					break;
 			}
@@ -316,6 +363,7 @@ export class mainStage extends BaseStep {
 		await Promise.all(proms)
 		console.log('END download all srpite, count = ', proms.length);
 		this.waitLoadSheet = false;
+		this.stateLoadingSheet = stateLoadingSheet.done
 	}
 	private async test() {
 		console.log('test clicked');

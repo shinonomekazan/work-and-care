@@ -3,10 +3,11 @@ import { Helper } from "./helper";
 import * as al from "@akashic-extension/akashic-label";
 import { FontFamily, TextAlign } from "@akashic/akashic-engine";
 import { FlowEventName } from "./mainScene";
-import { getSender, setSender } from "./sender";
+import { gameLoad_sender, getSender, setSender } from "./sender";
 import { actionSender } from "./mainStage";
 import { Button } from "./button";
 import { layout } from "./stageLayout";
+import { buttonAndSheet } from "./buttonLoadSheet";
 enum state {
 	none,
 	running,
@@ -18,14 +19,13 @@ export class options extends BaseStep {
 	private btn_thuyetphuc: Button;
 	private btn_thaoluan: Button;
 	private btn_doclap: Button;
-	private sheetTarget: string;
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
 				{
 					const scene = g.game.scene();
-					const layout: layout = getSender();
-					const parent = layout.uiLayer;
+					const sender: gameLoad_sender = getSender();
+					const parent = sender.layout.uiLayer;
 					//thaoluan
 					const img_thaoluan = scene.asset.getImage(
 						"/assets/btn-thao-luan.png"
@@ -36,10 +36,6 @@ export class options extends BaseStep {
 						516,
 						130
 					);
-					this.btn_thaoluan.onClick.add(() => {
-						console.log("thaoluan");
-						this.sheetTarget = "7.1";
-					});
 					parent.append(this.btn_thaoluan);
 					this.btn_thaoluan.hide();
 					//doclap
@@ -47,9 +43,6 @@ export class options extends BaseStep {
 						"/assets/btn-doc-lap.png"
 					);
 					this.btn_doclap = new Button(scene, img_doclap, 516, 130);
-					this.btn_doclap.onClick.add(() => {
-						this.sheetTarget = "8.1";
-					});
 					parent.append(this.btn_doclap);
 					this.btn_doclap.hide();
 					//thuyetphuc
@@ -57,9 +50,6 @@ export class options extends BaseStep {
 						"/assets/btn-thuyet-phuc.png"
 					);
 					this.btn_thuyetphuc = new Button(scene, img_thuyetphuc, 516, 130);
-					this.btn_thuyetphuc.onClick.add(() => {
-						this.sheetTarget = "6.1";
-					});
 					parent.append(this.btn_thuyetphuc);
 					this.btn_thuyetphuc.hide();
 					this.alignButtons(
@@ -70,6 +60,9 @@ export class options extends BaseStep {
 						],
 						10
 					);
+					sender.buttonLoadSheet.push(new buttonAndSheet(this.btn_thuyetphuc, "6.1"))
+					sender.buttonLoadSheet.push(new buttonAndSheet(this.btn_thaoluan, "7.1"))
+					sender.buttonLoadSheet.push(new buttonAndSheet(this.btn_doclap, "8.1"))
 				}
 				this.runNext();
 				break;
@@ -90,16 +83,10 @@ export class options extends BaseStep {
 					this.runNext();
 				}
 				break;
-			case FlowEventName.LoadSheet:
+			case FlowEventName.LoadSheet_start:
 				{
-					if (this.sheetTarget != undefined) {
-						setSender(this.sheetTarget);
-						this.sheetTarget = undefined;
-						this.setActiveOp1(false);
-						this.runNext();
-					} else {
-						this.runThisNextFrame();
-					}
+					this.setActiveOp1(false);
+					this.runNext();
 				}
 				break;
 		}

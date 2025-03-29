@@ -3,7 +3,7 @@ import { Helper } from "./helper";
 import * as al from "@akashic-extension/akashic-label";
 import { Scene, TextAlign } from "@akashic/akashic-engine";
 import { FlowEventName } from "./mainScene";
-import { getSender, setSender } from "./sender";
+import { gameLoad_sender, getSender, setSender } from "./sender";
 export class layout {
 	constructor() {
 		const scene = g.game.scene();
@@ -35,9 +35,13 @@ export class stageLayout extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				this.layout = new layout();
-				setSender(this.layout);
-				this.runNext();
+				{
+					this.layout = new layout();
+					const sender: gameLoad_sender = new gameLoad_sender();
+					sender.layout = this.layout;
+					setSender(sender);
+					this.runNext();
+				}
 				break;
 		}
 	}

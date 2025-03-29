@@ -7,6 +7,7 @@ declare global {
 	var gameLayer: g.E;
 	var debugLayer: g.E;
 	var debugMode: boolean;
+	var gotoSheetName: string;
 }
 async function main(param: g.GameMainParameterObject): Promise<void> {
 	//console.log(param);

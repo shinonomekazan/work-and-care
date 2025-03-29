@@ -2,7 +2,7 @@ import { Button } from "./button";
 import { BaseStep } from "./flow/step";
 import { Helper } from "./helper";
 import { FlowEventName } from "./mainScene";
-import { getSender } from "./sender";
+import { gameLoad_sender, getSender } from "./sender";
 import { layout } from "./stageLayout";
 
 export class startStage extends BaseStep {
@@ -15,10 +15,10 @@ export class startStage extends BaseStep {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
 				const scene = g.game.scene();
-				const layout: layout = getSender();
-				console.log(layout);
+				const sender: gameLoad_sender = getSender();
+				//console.log(layout);
 				this.spriteTitle = Helper.newSprite("/assets/title0.png");
-				layout.uiLayer.append(this.spriteTitle);
+				sender.layout.uiLayer.append(this.spriteTitle);
 				this.spriteTitle.x =
 					g.game.width / 2 - this.spriteTitle.width / 2;
 				this.spriteTitle.y = 100
@@ -32,7 +32,7 @@ export class startStage extends BaseStep {
 						this.lockClick = true;
 					}
 				});
-				layout.uiLayer.append(this.btnPlay);
+				sender.layout.uiLayer.append(this.btnPlay);
 				this.btnPlay.x = g.game.width / 2 - this.btnPlay.width / 2;
 				this.btnPlay.y =
 					g.game.height / 2 - this.btnPlay.height / 2 + 250;

@@ -3,7 +3,7 @@ import { Helper } from "./helper";
 import * as al from "@akashic-extension/akashic-label";
 import { TextAlign } from "@akashic/akashic-engine";
 import { FlowEventName } from "./mainScene";
-import { getSender, setSender } from "./sender";
+import { gameLoad_sender, getSender, setSender } from "./sender";
 import { layout } from "./stageLayout";
 import { actionSender } from "./mainStage";
 enum state {
@@ -19,8 +19,8 @@ export class textScreen extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				const layout: layout = getSender();
-				this.layer = layout.charaLayer;
+				const sender: gameLoad_sender = getSender();
+				this.layer = sender.layout.charaLayer;
 				const scene = g.game.scene();
 				this.fill = new g.FilledRect({
 					scene: scene,

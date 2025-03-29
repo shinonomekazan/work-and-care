@@ -3,7 +3,7 @@ import { Helper } from "./helper";
 import * as al from "@akashic-extension/akashic-label";
 import { Sprite, TextAlign } from "@akashic/akashic-engine";
 import { FlowEventName } from "./mainScene";
-import { getSender } from "./sender";
+import { gameLoad_sender, getSender } from "./sender";
 import { layout } from "./stageLayout";
 import { actionSender } from "./mainStage";
 import { download } from "./download";
@@ -20,8 +20,8 @@ export class background extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				const layout: layout = getSender();
-				this.layer = layout.background;
+				const sender: gameLoad_sender = getSender();
+				this.layer = sender.layout.background;
 				this.setBg("/assets/backgrounds/back_living.png", 0);
 				this.runNext();
 				break;

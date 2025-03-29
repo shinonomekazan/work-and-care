@@ -1,7 +1,7 @@
 import { BaseStep } from "./flow/step";
 import { Helper } from "./helper";
 import { FlowEventName } from "./mainScene";
-import { getSender } from "./sender";
+import { gameLoad_sender, getSender } from "./sender";
 import { actionSender } from "./mainStage";
 import { layout } from "./stageLayout";
 import { Sprite } from "@akashic/akashic-engine";
@@ -88,9 +88,8 @@ export class chara extends BaseStep {
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
-				const layout: layout = getSender();
-				this.layer = layout.charaLayer;
-
+				const sender: gameLoad_sender = getSender();
+				this.layer = sender.layout.charaLayer;
 				this.runNext();
 				break;
 			case FlowEventName.Action:

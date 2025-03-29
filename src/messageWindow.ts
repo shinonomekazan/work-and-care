@@ -3,7 +3,7 @@ import { Helper } from "./helper";
 import * as al from "@akashic-extension/akashic-label";
 import { FontFamily, TextAlign } from "@akashic/akashic-engine";
 import { FlowEventName } from "./mainScene";
-import { getSender } from "./sender";
+import { gameLoad_sender, getSender, setSender } from "./sender";
 import { actionSender } from "./mainStage";
 import { Button } from "./button";
 import { layout } from "./stageLayout";
@@ -27,8 +27,8 @@ export class messageWindow extends BaseStep {
 		switch (eventName) {
 			case FlowEventName.GameLoad:
 				let scene = g.game.scene();
-				const layout: layout = getSender();
-				const parent = layout.uiLayer;
+				const sender: gameLoad_sender = getSender();
+				const parent = sender.layout.uiLayer;
 				/*this.sprChatBg = Helper.newSprite9Slice(
 					"/assets/message_window.png",
 					1142,
