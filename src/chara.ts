@@ -108,7 +108,7 @@ export class chara extends BaseStep {
 									}
 								}
 								if (findChara == undefined) {
-									console.log("undef", name);
+									console.log("add new chara: ", name);
 									findChara = new charaDef();
 									findChara.layer = new g.E({
 										scene: g.game.scene(),
@@ -116,10 +116,6 @@ export class chara extends BaseStep {
 										tag: "chara-" + name,
 									});
 									this.charas.push(findChara);
-								} else {
-									if (findChara.checkExistFace(sen.getValue("face"))) {
-										console.error('already chara with face ', face);
-									}
 								}
 								findChara.name = name;
 								findChara.addFace({

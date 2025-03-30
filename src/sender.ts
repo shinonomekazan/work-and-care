@@ -16,4 +16,5 @@ export function getSender(): any {
 export class gameLoad_sender {
 	layout: layout;
 	buttonLoadSheet: buttonAndSheet[] = [];
+	triggerLoadSheet: g.Trigger<string> = new g.Trigger<string>()
 }

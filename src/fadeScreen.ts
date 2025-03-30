@@ -53,7 +53,7 @@ export class fadeScreen extends BaseStep {
 					}
 				}
 				break;
-			case FlowEventName.LoadSheetFromGoto:
+			case FlowEventName.LoadSheetByButton:
 				{
 
 					this.runNext();

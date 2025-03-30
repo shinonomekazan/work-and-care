@@ -19,7 +19,7 @@ export enum FlowEventName {
 	GotoMainStage,
 	Action,
 	ActionComplete,
-	LoadSheetFromGoto,
+	LoadSheetByButton,
 	LoadSheet_start,
 	LoadSheet_end,
 }
@@ -36,6 +36,7 @@ export class MainScene extends g.Scene {
 			"/assets/message_window.png",
 			"/assets/white.png",
 			"/assets/btn-test.png",
+			"/assets/btn-back.png",
 
 			//background
 			"/assets/backgrounds/bia_1.jpg",
@@ -81,7 +82,7 @@ export class MainScene extends g.Scene {
 			_waitStep,
 			_optionsStep,
 			_textScreenStep,
-			_buttonLoadSheet
+			_buttonLoadSheet,
 		]);
 		this.flowManger.addFlow(flowLoad);
 		//FlowEventName.Test
@@ -119,7 +120,7 @@ export class MainScene extends g.Scene {
 		]);
 		this.flowManger.addFlow(flowActionComplete);
 		//FlowEventName.LoadSheetFromGoto
-		const flowLoadSheetGoto = new Flow(FlowEventName.LoadSheetFromGoto, [
+		const flowLoadSheetGoto = new Flow(FlowEventName.LoadSheetByButton, [
 			_buttonLoadSheet,
 			_mainStageStep,
 			_fadeScreenStep,
@@ -143,7 +144,7 @@ export class MainScene extends g.Scene {
 		this.flowManger.fire(FlowEventName.GotoMainStage);
 		this.flowManger.fireLoop(FlowEventName.Action);
 		this.flowManger.fireLoop(FlowEventName.ActionComplete);
-		this.flowManger.fireLoop(FlowEventName.LoadSheetFromGoto);
+		this.flowManger.fireLoop(FlowEventName.LoadSheetByButton);
 		this.flowManger.fireLoop(FlowEventName.LoadSheet_start);
 		this.flowManger.fireLoop(FlowEventName.LoadSheet_end);
 

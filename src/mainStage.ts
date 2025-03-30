@@ -1,7 +1,6 @@
 import { Button } from "./button";
 import { download } from "./download";
 import { BaseStep } from "./flow/step";
-import { googleLogin } from "./googleLogin";
 import { Helper } from "./helper";
 import { FlowEventName } from "./mainScene";
 import { gameLoad_sender, getSender, setSender } from "./sender";
@@ -42,9 +41,11 @@ export class mainStage extends BaseStep {
 	private index = 0;
 	private waitComplete = false;
 	private waitLoadSheet = false;
+	private waitLoadSheetByTrigger = false;
 	private finish = false;
 	private gotoMainState = false;
 	private btnTest: Button
+	private triggerLoadSheet: g.Trigger<string>;
 	private stateLoadingSheet: stateLoadingSheet = stateLoadingSheet.none;
 	public onStep(eventName: FlowEventName) {
 		switch (eventName) {
@@ -58,9 +59,10 @@ export class mainStage extends BaseStep {
 					this.loadGoogleSheet(sheetName);
 					//
 					const sender: gameLoad_sender = getSender();
+					this.triggerLoadSheet = sender.triggerLoadSheet;
 					const scene = g.game.scene();
-					const img_doclap = scene.asset.getImage("/assets/btn-test.png");
-					this.btnTest = new Button(scene, img_doclap, 80, 30);
+					const img_test = scene.asset.getImage("/assets/btn-test.png");
+					this.btnTest = new Button(scene, img_test, 80, 30);
 					sender.layout.uiLayer.append(this.btnTest)
 					this.btnTest.onClick.add(() => {
 						this.test()
@@ -78,6 +80,7 @@ export class mainStage extends BaseStep {
 					if (
 						this.waitLoadSheet ||
 						this.finish ||
+						this.waitLoadSheetByTrigger ||
 						this.gotoMainState == false
 					) {
 						this.runThisNextFrame();
@@ -87,7 +90,6 @@ export class mainStage extends BaseStep {
 						this.runThisNextFrame();
 					} else {
 						if (this.index < this.sheetScript.length) {
-							//console.log("RUN");
 							this.process();
 						} else {
 							console.log("FINISH!");
@@ -106,22 +108,12 @@ export class mainStage extends BaseStep {
 					this.runNext();
 				}
 				break;
-			case FlowEventName.LoadSheetFromOption:
-				{
-					const sen: string = getSender();
-					console.log("loaddsheet ", sen);
-					this.waitComplete = false;
-					this.finish = false;
-					this.index = 0;
-					this.loadGoogleSheet(sen);
-					this.runNext();
-				}
-				break;
-			case FlowEventName.LoadSheetFromGoto:
+			case FlowEventName.LoadSheetByButton:
 				{
 					this.stateLoadingSheet = stateLoadingSheet.startLoad;
 					let target: string = getSender();
 					console.log('target LOAD ', target);
+					this.waitLoadSheetByTrigger = false;
 					this.waitComplete = false;
 					this.finish = false;
 					this.index = 0;
@@ -150,16 +142,17 @@ export class mainStage extends BaseStep {
 		}
 	}
 	private process() {
+		let forceLoadSheet = false;
 		let runNext = false;
 		let text = this.sheetScript[this.index];
-		while (text.length == 0 || text[0] == "#") {
+		while (text.length == 0 || text[0][0] == "#" || this.index == 0) {//0=title
 			this.index++;
 			text = this.sheetScript[this.index];
 			if (this.index == this.sheetScript.length) {
 				break;
 			}
 		}
-		if (text != undefined) {//end file
+		if (text != undefined) {//not end file
 			switch (text[1]) {
 				case "typing-effect":
 					{
@@ -302,24 +295,59 @@ export class mainStage extends BaseStep {
 						runNext = true;
 					}
 					break;
-				case "goto-sheet":
+				case "text-screen-back":
 					{
 						let sen = new actionSender();
-						sen.action = "text-screen";
+						sen.action = "text-screen-back";
 						sen.setValuesFrom(text);
 						setSender(sen);
 						this.runNext();
 						runNext = true;
 					}
 					break;
+				case "goto-sheet":
+					{
+						let sen = new actionSender();
+						sen.setValuesFrom(text);
+						forceLoadSheet = true;
+						this.waitLoadSheetByTrigger = true;
+						this.triggerLoadSheet.fire(sen.getValue("sheetname"))
+					}
+					break;
+				case "text-screen-hide":
+					{
+						let sen = new actionSender();
+						sen.action = "text-screen-hide";
+						setSender(sen);
+						this.runNext();
+						runNext = true;
+					}
+					break;
+				case "button-fake-back":
+					{
+						let sen = new actionSender();
+						sen.action = "button-fake-back";
+						setSender(sen);
+						this.runNext();
+						runNext = true;
+					}
+					break;				
 				default:
+					{
+						console.error('unknow action ', text);
+						let sen = new actionSender();
+						sen.action = "unknow";
+						setSender(sen);
+
+					}
 					break;
 			}
 		}
-		//console.log("index ", this.index);
-		this.index++;
-		if (runNext == false) {
-			this.runThisNextFrame();
+		if (forceLoadSheet == false) {
+			this.index++;
+			if (runNext == false) {
+				this.runThisNextFrame();
+			}
 		}
 	}
 	private async loadGoogleSheet(sheetName: string) {

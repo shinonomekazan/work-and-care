@@ -80,6 +80,12 @@
 			"path": "assets/btn-test.png",
 			"width": 160,
 			"height": 30
+		},
+		"assets/btn-back.png": {
+			"type": "image",
+			"path": "assets/btn-back.png",
+			"width": 1032,
+			"height": 130
 		}
 	},
 	"moduleMainScripts": {},

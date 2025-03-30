@@ -31,12 +31,11 @@ export class buttonLoadSheet extends BaseStep {
 					const senser: gameLoad_sender = getSender();
 					senser.buttonLoadSheet.forEach(btn => {
 						btn.button.onClick.add(() => {
-							if (this.state == state.none) {
-								this.target = btn.sheet;
-								this.state = state.startLoad
-								console.log('buttonLoadSheet->>gotosheet: ', this.target);
-							}
+							this.loadSheet(btn.sheet)
 						})
+					})
+					senser.triggerLoadSheet.add((sheetName) => {
+						this.loadSheet(sheetName)
 					})
 				}
 				this.runNext()
@@ -52,7 +51,7 @@ export class buttonLoadSheet extends BaseStep {
 					this.runNext();
 				}
 				break;
-			case FlowEventName.LoadSheetFromGoto:
+			case FlowEventName.LoadSheetByButton:
 				{
 					if (this.state == state.none) {
 						this.runThisNextFrame()
@@ -70,6 +69,13 @@ export class buttonLoadSheet extends BaseStep {
 				}
 				break;
 
+		}
+	}
+	private loadSheet(name: string) {
+		if (this.state == state.none) {
+			this.target = name;
+			this.state = state.startLoad
+			console.log('buttonLoadSheet->>gotosheet: ', this.target);
 		}
 	}
 }
